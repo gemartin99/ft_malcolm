@@ -13,9 +13,10 @@ int main(int argc, char **argv)
 {
     if (argc != 5)
     {
-        fprintf(stderr, "Usage: ./%s <source ip> <source mac address> <target ip> <target mac address>\n", argv[0]);
+        fprintf(stderr, "Usage: %s <source ip> <source mac address> <target ip> <target mac address>\n", argv[0]);
         exit(-1);
     }
     t_malcom *data = init_struct();
     parse(argv, data);
+    return (0);
 }

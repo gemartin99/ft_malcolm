@@ -1,11 +1,21 @@
+#include "ft_malcom.h"
+
 int valid_ip(char *ip)
 {
+    struct sockaddr_in sa;
 
+    if (inet_pton(AF_INET, ip, &(sa.sin_addr)) == 1)
+        return 1;
+    return 0;
 }
 
 int valid_hostname(char *hostname)
 {
+    struct hostent *_host = gethostbyname(hostname);
 
+    if (_host != NULL)
+        return 0;
+    return 1;
 }
 
 int parse(char **argv, t_malcom *data)
@@ -20,4 +30,6 @@ int parse(char **argv, t_malcom *data)
         fprintf(stderr, "%s: unknown host or invalid target IP address: %s\n", argv[0], argv[3]);
         exit(-1);
     }
+    (void)data;
+    return (0);
 }
