@@ -56,7 +56,13 @@ fclean:
 			@${RM} ${NAME}
 			@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
+test:
+			docker compose -f test/docker-compose.yml up -d
 
-re: fclean all
+test_stop:
+			docker compose -f test/docker-compose.yml down
 
-.PHONY: all clean fclean re
+
+re: fclean all 
+
+.PHONY: all clean fclean re test test_stop
