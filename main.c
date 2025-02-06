@@ -1,11 +1,15 @@
 #include "ft_malcom.h"
 
-t_malcom *init_struct(void)
+t_malcom *init_struct(char **argv)
 {
     t_malcom *data = (t_malcom *)malloc(sizeof(t_malcom));
     if (!data)
         exit(-1);
     ft_bzero(data, sizeof(*data));
+    data->s_ip = argv[1];
+    data->s_mac = argv[2];
+    data->t_ip = argv[3];
+    data->t_mac = argv[4];
     return (data);
 }
 
@@ -14,9 +18,11 @@ int main(int argc, char **argv)
     if (argc != 5)
     {
         fprintf(stderr, "Usage: %s <source ip> <source mac address> <target ip> <target mac address>\n", argv[0]);
-        exit(-1);
+        return (-1);
     }
-    t_malcom *data = init_struct();
-    parse(argv, data);
+    if (parse(argv) == -1)
+        return (-1);
+    t_malcom *data = init_struct(argv);
+    listen_arp(data);
     return (0);
 }

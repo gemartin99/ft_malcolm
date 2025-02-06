@@ -18,7 +18,7 @@ typedef struct s_malcom
 } t_malcom;
 
 void	ft_bzero(void *s, size_t n);
-int     parse(char **argv, t_malcom *data);
+int     parse(char **argv);
 int     is_hex(char c);
 size_t	ft_strlen(const char *s);
 

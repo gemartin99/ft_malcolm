@@ -34,29 +34,27 @@ int valid_mac(char *s)
     return (0);
 }
 
-int parse(char **argv, t_malcom *data)
+int parse(char **argv)
 {
     if (valid_ip(argv[1]) != 1 && valid_hostname(argv[1]) != 0)
     {
         fprintf(stderr, "%s: unknown host or invalid source IP address: %s\n", argv[0], argv[1]);
-        exit(-1);
+        return(-1);
     }
     if (valid_ip(argv[3]) != 1 && valid_hostname(argv[3]) != 0)
     {
         fprintf(stderr, "%s: unknown host or invalid target IP address: %s\n", argv[0], argv[3]);
-        exit(-1);
+        return(-1);
     }
     if (valid_mac(argv[2]) != 0)
     {
         fprintf(stderr, "%s:  invalid mac address: (%s)\n", argv[0], argv[2]);
-        exit(-1);
+        return(-1);
     }
     if (valid_mac(argv[4]) != 0)
     {
         fprintf(stderr, "%s:  invalid mac address: (%s)\n", argv[0], argv[4]);
-        exit(-1);
+        return(-1);
     }
-    printf("TODO OK\n");
-    (void)data;
     return (0);
 }
