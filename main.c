@@ -4,7 +4,7 @@ t_malcom *init_struct(char **argv)
 {
     t_malcom *data = (t_malcom *)malloc(sizeof(t_malcom));
     if (!data)
-        exit(-1);
+        exit(1);
     ft_bzero(data, sizeof(*data));
     data->s_ip = argv[1];
     data->s_mac = argv[2];

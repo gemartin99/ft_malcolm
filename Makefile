@@ -21,7 +21,7 @@ DARK_GREEN =	\033[38;2;75;179;82m
 DARK_YELLOW =	\033[38;5;143m
 GREEN := 		\033[0;92m
 
-SRCS = parse.c utils.c main.c
+SRCS = parse.c utils.c listen.c main.c
 
 INCLUD = ft_malcom.h
 
