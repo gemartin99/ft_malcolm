@@ -14,6 +14,7 @@
 #include <net/ethernet.h>
 #include <net/if.h>
 #include <sys/select.h>
+#include <ifaddrs.h>
 
 #define BUFFER_SIZE 65536
 
