@@ -34,3 +34,10 @@ int is_hex(char c)
 		return (1);
 	return (-1);
 }
+
+void handle_sigint(int sig)
+{
+    (void)sig;
+    printf("\nSIGINT signal received. Exiting the program\n");
+    check_sigint = 1;
+}

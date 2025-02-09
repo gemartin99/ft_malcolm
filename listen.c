@@ -3,9 +3,9 @@
 int listen_arp(t_malcom *data)
 {
     int sockfd;
-    //unsigned char buffer[BUFFER_SIZE];
-    //struct sockaddr_ll addr;
-    //socklen_t addr_len = sizeof(addr);
+    unsigned char buffer[BUFFER_SIZE];
+    struct sockaddr_ll addr;
+    socklen_t addr_len = sizeof(addr);
     struct ifaddrs *ifaddr, *ifa;
 
     if ((sockfd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ARP))) < 0)
@@ -39,7 +39,10 @@ int listen_arp(t_malcom *data)
     }
 
     freeifaddrs(ifaddr);
-    printf("Found available interface: %s\n", selected_iface);
+    if (selected_iface[0] != '\0')
+        printf("Found available interface: %s\n", selected_iface);
+    else
+        fprintf(stderr, "Failed to obtain available network interface\n");
     /*
     MANERA DE UTILIZAR INTERFAZ HARDCODEADA
     int interface_index = if_nametoindex("eth0");
@@ -51,7 +54,60 @@ int listen_arp(t_malcom *data)
     }
     else
         printf("Found available interface: eth0\n");*/
-    (void)data;
+    printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, selected_iface);
+    while (check_sigint == 0)
+    {
+        fd_set fds;
+        struct timeval timeout;
+
+        FD_ZERO(&fds);
+        FD_SET(sockfd, &fds);
+
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 500000; //500ms
+
+        int ret = select(sockfd + 1, &fds, NULL, NULL, &timeout);
+        if (ret < 0)
+        {
+            if (check_sigint == 0)
+                fprintf(stderr, "Failed to monitor socket\n");
+            close(sockfd);
+            exit(1);
+        }
+        else if (ret == 0)
+            continue; //timeout
+
+        int nbytes = recvfrom(sockfd, buffer, sizeof(buffer), 0,(struct sockaddr *)&addr, &addr_len);
+        if (nbytes < 0)
+        {
+            fprintf(stderr, "Failed to receive the packet\n");
+            continue;
+        }
+
+        //extraemos la cabecera ethernet del paquete
+        struct ether_header *eth_hdr = (struct ether_header *)buffer;
+
+        if (ntohs(eth_hdr->ether_type) != ETH_P_ARP)
+            continue; //si no es un paquete ARP se ignora
+
+        //extraemos cabecera arp del paquete    
+        struct ether_arp *arp_hdr = (struct ether_arp *)(buffer + sizeof(struct ether_header));
+        
+        if (ntohs(arp_hdr->ea_hdr.ar_op) != ARPOP_REQUEST)
+            continue; //si no es solicitud arp se ignora
+
+        //extraemos la direccion ip destino
+        char arp_tpa[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, arp_hdr->arp_tpa, arp_tpa, sizeof(arp_tpa));//convertir ip binario to str
+        
+        if (strcmp(arp_tpa, data->s_ip) == 0)
+        {
+            printf("Received ARP request from %s\n", data->s_ip);
+            break;
+        }
+
+    }
+    close(sockfd);
     return (0);
 }
 

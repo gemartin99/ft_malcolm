@@ -1,5 +1,7 @@
 #include "ft_malcom.h"
 
+int check_sigint = 0;
+
 t_malcom *init_struct(char **argv)
 {
     t_malcom *data = (t_malcom *)malloc(sizeof(t_malcom));
@@ -15,6 +17,7 @@ t_malcom *init_struct(char **argv)
 
 int main(int argc, char **argv)
 {
+    signal(SIGINT, handle_sigint);
     if (argc != 5)
     {
         fprintf(stderr, "Usage: %s <source ip> <source mac address> <target ip> <target mac address>\n", argv[0]);
