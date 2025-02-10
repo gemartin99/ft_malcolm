@@ -38,6 +38,6 @@ int is_hex(char c)
 void handle_sigint(int sig)
 {
     (void)sig;
-    printf("\nSIGINT signal received. Exiting the program\n");
+    printf("\nSIGINT signal received.\nExiting the program...\n");
     check_sigint = 1;
 }

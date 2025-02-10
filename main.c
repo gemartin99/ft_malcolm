@@ -27,5 +27,7 @@ int main(int argc, char **argv)
         return (-1);
     t_malcom *data = init_struct(argv);
     listen_arp(data);
+    if (check_sigint == 0)
+        send_arp(data);
     return (0);
 }

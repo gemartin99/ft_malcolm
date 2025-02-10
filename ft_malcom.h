@@ -29,6 +29,7 @@ typedef struct s_malcom
     char *s_mac;
     char *t_ip;
     char *t_mac;
+    char iface[IFNAMSIZ];
 } t_malcom;
 
 void	ft_bzero(void *s, size_t n);
@@ -39,5 +40,6 @@ size_t	ft_strlen(const char *s);
 
 
 int listen_arp(t_malcom *data);
+int     send_arp(t_malcom *data);
 
 #endif

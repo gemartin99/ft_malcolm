@@ -20,7 +20,6 @@ int listen_arp(t_malcom *data)
         exit(1);
     }
 
-    char selected_iface[IFNAMSIZ] = {0};
     ifa = ifaddr;
 
     while (ifa != NULL) {
@@ -31,7 +30,7 @@ int listen_arp(t_malcom *data)
             if ((flags & IFF_UP) && (flags & IFF_RUNNING) &&
                 (flags & IFF_BROADCAST || flags & IFF_MULTICAST)) //interfaz activada, funcionando y permitiendo la comunicacion con otras maquinas
             {
-                strncpy(selected_iface, ifa->ifa_name, IFNAMSIZ);
+                strncpy(data->iface, ifa->ifa_name, IFNAMSIZ);
                 break;
             }
         }
@@ -39,8 +38,8 @@ int listen_arp(t_malcom *data)
     }
 
     freeifaddrs(ifaddr);
-    if (selected_iface[0] != '\0')
-        printf("Found available interface: %s\n", selected_iface);
+    if (data->iface[0] != '\0')
+        printf("Found available interface: %s\n", data->iface);
     else
         fprintf(stderr, "Failed to obtain available network interface\n");
     /*
@@ -54,7 +53,7 @@ int listen_arp(t_malcom *data)
     }
     else
         printf("Found available interface: eth0\n");*/
-    printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, selected_iface);
+    printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, data->iface);
     while (check_sigint == 0)
     {
         fd_set fds;
