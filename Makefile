@@ -57,6 +57,7 @@ fclean:
 			@echo "\n${BLUE} ◎ $(RED)All objects and executable cleaned successfully${BLUE} ◎$(DEF_COLOR)\n"
 
 test:
+			export DOCKER_HOST=unix:///var/run/docker.sock
 			docker compose -f test/docker-compose.yml up -d
 
 test_stop:

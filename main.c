@@ -17,6 +17,12 @@ t_malcom *init_struct(char **argv)
 
 int main(int argc, char **argv)
 {
+    if (geteuid() != 0)
+    {
+        fprintf(stderr, "Failed: This program must be run as root.\n");
+        return (-1);
+    }
+
     signal(SIGINT, handle_sigint);
     if (argc != 5)
     {
