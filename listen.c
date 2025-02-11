@@ -41,7 +41,10 @@ int listen_arp(t_malcom *data)
     if (data->iface[0] != '\0')
         printf("Found available interface: %s\n", data->iface);
     else
+    {
         fprintf(stderr, "Failed to obtain available network interface\n");
+        exit(1);
+    }
     /*
     MANERA DE UTILIZAR INTERFAZ HARDCODEADA
     int interface_index = if_nametoindex("eth0");
@@ -84,13 +87,14 @@ int listen_arp(t_malcom *data)
         }
 
         //extraemos la cabecera ethernet del paquete
-        struct ether_header *eth_hdr = (struct ether_header *)buffer;
+        struct ethhdr *eth_hdr = (struct ethhdr *)buffer;
 
-        if (ntohs(eth_hdr->ether_type) != ETH_P_ARP)
+        if (ntohs(eth_hdr->h_proto) != ETH_P_ARP)
             continue; //si no es un paquete ARP se ignora
 
         //extraemos cabecera arp del paquete    
-        struct ether_arp *arp_hdr = (struct ether_arp *)(buffer + sizeof(struct ether_header));
+        struct ether_arp *arp_hdr = (struct ether_arp *)(buffer + sizeof(struct ethhdr));
+
         
         if (ntohs(arp_hdr->ea_hdr.ar_op) != ARPOP_REQUEST)
             continue; //si no es solicitud arp se ignora

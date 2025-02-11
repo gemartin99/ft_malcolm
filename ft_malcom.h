@@ -18,10 +18,17 @@
 #include <signal.h>
 #include <sys/select.h>
 #include <netinet/if_ether.h>
+#include <linux/if_ether.h> 
 
 #define BUFFER_SIZE 65536
 
 extern int check_sigint;
+
+struct arp_packet
+{
+    struct ethhdr eth;
+    struct ether_arp arp;
+};
 
 typedef struct s_malcom
 {
@@ -39,7 +46,7 @@ int     is_hex(char c);
 size_t	ft_strlen(const char *s);
 
 
-int listen_arp(t_malcom *data);
+int     listen_arp(t_malcom *data);
 int     send_arp(t_malcom *data);
 
 #endif
