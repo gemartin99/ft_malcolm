@@ -22,7 +22,8 @@ int listen_arp(t_malcom *data)
 
     ifa = ifaddr;
 
-    while (ifa != NULL) {
+    while (ifa != NULL)
+    {
         if (ifa->ifa_addr && ifa->ifa_addr->sa_family == AF_PACKET) //solo interfaces fisicas. No 'lo' y variantes.
         {
             unsigned int flags = ifa->ifa_flags;
@@ -102,7 +103,8 @@ int listen_arp(t_malcom *data)
         //extraemos la direccion ip destino
         char arp_tpa[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, arp_hdr->arp_tpa, arp_tpa, sizeof(arp_tpa));//convertir ip binario to str
-        
+
+
         if (strcmp(arp_tpa, data->s_ip) == 0)
         {
             printf("Received ARP request from %s\n", data->s_ip);

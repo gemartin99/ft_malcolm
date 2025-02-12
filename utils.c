@@ -41,3 +41,25 @@ void handle_sigint(int sig)
     printf("\nSIGINT signal received.\nExiting the program...\n");
     check_sigint = 1;
 }
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (dst == NULL && src == NULL)
+		return (dst);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
+}
+
+void mac_to_str(unsigned char *mac, char *mac_str)
+{
+    //bin to str
+    snprintf(mac_str, 18, "%02x:%02x:%02x:%02x:%02x:%02x", 
+             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+}

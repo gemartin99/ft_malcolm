@@ -41,6 +41,9 @@ typedef struct s_malcom
 
 void	ft_bzero(void *s, size_t n);
 void    handle_sigint(int sig);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void    mac_to_str(unsigned char *mac, char *mac_str);
+void	*ft_memset(void *b, int c, size_t len);
 int     parse(char **argv);
 int     is_hex(char c);
 size_t	ft_strlen(const char *s);

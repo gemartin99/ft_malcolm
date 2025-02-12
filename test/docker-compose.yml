@@ -1,7 +1,7 @@
 services:
   attacker:
-    image: alpine
-    container_name: arp_attacker
+    image: debian
+    container_name: recibe
     networks:
       arp_network:
         ipv4_address: 192.168.0.2
@@ -12,8 +12,8 @@ services:
       - 8.8.8.8
 
   victim:
-    image: alpine
-    container_name: arp_victim
+    image: debian
+    container_name: envia
     networks:
       arp_network:
         ipv4_address: 192.168.0.3
