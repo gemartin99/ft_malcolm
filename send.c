@@ -76,7 +76,7 @@ int send_arp(t_malcom *data)
 
     if (data->v == 1)
     {
-        printf("Dump del paquete ARP:\n");
+        printf("Hex dump pf ARP packet:\n");
         print_hex(&packet, sizeof(packet), stdout);
     }
     else if (data->o == 1)
@@ -89,7 +89,7 @@ int send_arp(t_malcom *data)
             exit(1);
         }
 
-        fprintf(output_file, "Dump del paquete ARP:\n");
+        fprintf(output_file, "Hex dump pf ARP packet:\n");
         print_hex(&packet, sizeof(packet), output_file);
     }
     

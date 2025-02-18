@@ -61,14 +61,22 @@ int parse(char **argv)
 
 //parse bonus
 
-int is_writable(const char *filename)
+int is_writable(const char *filename, t_malcom *data)
 {
     if (!filename)
         return (-1);
     if (access(filename, F_OK) == -1)
-        return (-1);
+    {
+        if (!data->s)
+            fprintf(stderr, "Failed to access to file %s\n", filename);
+        exit(1);
+    }
     if (access(filename, W_OK) == -1)
-        return (-1);
+    {
+        if (!data->s)
+            fprintf(stderr, "Failed to write in file %s\n", filename);
+        exit(1);
+    }
     return 0;//el archivo existe y es escribible
 }
 
@@ -81,7 +89,7 @@ int parse_bonus(int argc, char **argv, t_malcom *data)
             data->v = 1;
         else if (ft_strcmp(argv[i], "-o") == 0 || ft_strcmp(argv[i], "--output") == 0)
         {
-            if (i + 1 < argc && is_writable(argv[i + 1]) != -1)
+            if (i + 1 <= argc && is_writable(argv[i + 1], data) != -1)
             {
                 data->output = argv[i + 1];
                 i++;
