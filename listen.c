@@ -79,7 +79,7 @@ int listen_arp(t_malcom *data)
         int ret = select(sockfd + 1, &fds, NULL, NULL, &timeout);
         if (ret < 0)
         {
-            if (check_sigint == 0)
+            if (check_sigint == 0 && !data->s)
                 fprintf(stderr, "Failed to monitor socket\n");
             close(sockfd);
             exit(1);
