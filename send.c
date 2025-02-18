@@ -1,4 +1,4 @@
-#include "ft_malcom.h"
+#include "ft_malcolm.h"
 
 void mac_str_to_bin(const char *mac_str, uint8_t *mac_bin)
 {
@@ -14,7 +14,7 @@ void ft_ether_aton(const char *mac_str, uint8_t *mac_bin) {
 }
 
 
-int send_arp(t_malcom *data)
+int send_arp(t_malcolm *data)
 {
     int sockfd;
     int if_index;

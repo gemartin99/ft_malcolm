@@ -1,4 +1,4 @@
-#include "ft_malcom.h"
+#include "ft_malcolm.h"
 
 size_t	ft_strlen(const char *s)
 {

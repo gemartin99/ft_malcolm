@@ -1,10 +1,10 @@
-#include "ft_malcom.h"
+#include "ft_malcolm.h"
 
 int check_sigint = 0;
 
-t_malcom *init_struct(char **argv)
+t_malcolm *init_struct(char **argv)
 {
-    t_malcom *data = (t_malcom *)malloc(sizeof(t_malcom));
+    t_malcolm *data = (t_malcolm *)malloc(sizeof(t_malcolm));
     if (!data)
         exit(1);
     ft_bzero(data, sizeof(*data));
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     }
     if (parse(argv) == -1)
         return (-1);
-    t_malcom *data = init_struct(argv);
+    t_malcolm *data = init_struct(argv);
     if (argc > 5)
         parse_bonus(argc, argv, data);
     listen_arp(data);

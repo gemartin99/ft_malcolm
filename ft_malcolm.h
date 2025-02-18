@@ -1,5 +1,5 @@
-#ifndef FT_MALCOM_H
-# define FT_MALCOM_H
+#ifndef FT_MALCOLM_H
+# define FT_MALCOLM_H
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ struct arp_packet
     struct ether_arp arp;
 };
 
-typedef struct s_malcom
+typedef struct s_malcolm
 {
     int v;
     int o;
@@ -41,7 +41,7 @@ typedef struct s_malcom
     char *t_ip;
     char *t_mac;
     char iface[IFNAMSIZ];
-} t_malcom;
+} t_malcolm;
 
 void	ft_bzero(void *s, size_t n);
 void    handle_sigint(int sig);
@@ -51,14 +51,14 @@ void	*ft_memset(void *b, int c, size_t len);
 void    print_hex(const void *data, size_t size, FILE *output);
 void    print_help();
 int     parse(char **argv);
-int     parse_bonus(int argc, char **argv, t_malcom *data);
+int     parse_bonus(int argc, char **argv, t_malcolm *data);
 int     is_hex(char c);
 int	    ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strncpy(char *dst, const char *src, size_t dstsize);
 
 
-int     listen_arp(t_malcom *data);
-int     send_arp(t_malcom *data);
+int     listen_arp(t_malcolm *data);
+int     send_arp(t_malcolm *data);
 
 #endif

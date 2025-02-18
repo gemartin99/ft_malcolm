@@ -1,4 +1,4 @@
-#include "ft_malcom.h"
+#include "ft_malcolm.h"
 
 int valid_ip(char *ip)
 {
@@ -61,7 +61,7 @@ int parse(char **argv)
 
 //parse bonus
 
-int is_writable(const char *filename, t_malcom *data)
+int is_writable(const char *filename, t_malcolm *data)
 {
     if (!filename)
         return (-1);
@@ -80,7 +80,7 @@ int is_writable(const char *filename, t_malcom *data)
     return 0;//el archivo existe y es escribible
 }
 
-int parse_bonus(int argc, char **argv, t_malcom *data)
+int parse_bonus(int argc, char **argv, t_malcolm *data)
 {
     int i = 5;
     while (i < argc && argv[i])
@@ -104,7 +104,7 @@ int parse_bonus(int argc, char **argv, t_malcom *data)
             print_help();
         else
         {
-            printf("Invalid flag. Check --help\n");
+            printf("Invalid flag. Use %s --help\n", argv[0]);
             exit (1);
         }
         i++;

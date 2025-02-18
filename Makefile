@@ -1,4 +1,4 @@
-NAME = ft_malcom
+NAME = ft_malcolm
 
 DEL_LINE =		\033[2K
 ITALIC =		\033[3m
@@ -23,7 +23,7 @@ GREEN := 		\033[0;92m
 
 SRCS = parse.c utils.c listen.c main.c send.c
 
-INCLUD = ft_malcom.h
+INCLUD = ft_malcolm.h
 
 CC = gcc
 RM = rm -f
@@ -44,7 +44,7 @@ ${NAME}: ${OBJS}
 	@echo "$(GREEN)Created ${NAME} ✓$(DEF_COLOR)\n"
 
 clean:
-			@${RM} ${OBJS}
+			@${RM} ${OBJS} output.txt
 			@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 
 fclean:

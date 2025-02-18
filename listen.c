@@ -1,6 +1,6 @@
-#include "ft_malcom.h"
+#include "ft_malcolm.h"
 
-int listen_arp(t_malcom *data)
+int listen_arp(t_malcolm *data)
 {
     int sockfd;
     unsigned char buffer[BUFFER_SIZE];
