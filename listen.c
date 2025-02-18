@@ -31,7 +31,7 @@ int listen_arp(t_malcom *data)
             if ((flags & IFF_UP) && (flags & IFF_RUNNING) &&
                 (flags & IFF_BROADCAST || flags & IFF_MULTICAST)) //interfaz activada, funcionando y permitiendo la comunicacion con otras maquinas
             {
-                strncpy(data->iface, ifa->ifa_name, IFNAMSIZ);
+                ft_strncpy(data->iface, ifa->ifa_name, IFNAMSIZ);
                 break;
             }
         }

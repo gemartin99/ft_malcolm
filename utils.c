@@ -63,3 +63,24 @@ void mac_to_str(unsigned char *mac, char *mac_str)
     snprintf(mac_str, 18, "%02x:%02x:%02x:%02x:%02x:%02x", 
              mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 }
+
+size_t	ft_strncpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+	unsigned int	c;
+
+	i = 0;
+	c = 0;
+	while (src[c] != '\0')
+		c++;
+	if (dstsize != 0)
+	{
+		while (src[i] != '\0' && i < (dstsize - 1))
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (c);
+}
