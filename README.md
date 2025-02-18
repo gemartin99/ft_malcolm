@@ -32,7 +32,7 @@
 
 ## ⚒️ Instalación y compilación 
 ```bash
-git clone https://github.com/tuusuario/ft_malcolm.git
+git clone https://github.com/gemartin99/ft_malcolm.git
 cd ft_malcolm
 make
 ```
