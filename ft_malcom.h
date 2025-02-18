@@ -32,6 +32,10 @@ struct arp_packet
 
 typedef struct s_malcom
 {
+    int v;
+    int o;
+    int s;
+    char *output;
     char *s_ip;
     char *s_mac;
     char *t_ip;
@@ -44,10 +48,15 @@ void    handle_sigint(int sig);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void    mac_to_str(unsigned char *mac, char *mac_str);
 void	*ft_memset(void *b, int c, size_t len);
+void    print_hex(const void *data, size_t size, FILE *output);
+void    print_help();
 int     parse(char **argv);
+int     parse_bonus(int argc, char **argv, t_malcom *data);
 int     is_hex(char c);
+int	    ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
 size_t	ft_strncpy(char *dst, const char *src, size_t dstsize);
+
 
 int     listen_arp(t_malcom *data);
 int     send_arp(t_malcom *data);

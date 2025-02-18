@@ -84,3 +84,47 @@ size_t	ft_strncpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (c);
 }
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	
+	if (!s1 && !s2)
+		return (0);
+	if (!s1 || !s2)
+		return (-1);
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+	{
+		i++;
+	}
+	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+}
+
+void print_hex(const void *data, size_t size, FILE *output) 
+{
+    const unsigned char *byte = (const unsigned char *)data;
+    for (size_t i = 0; i < size; i++) 
+	{
+        fprintf(output, "%02x ", byte[i]); // imprime cada byte en formato hexadecimal
+        if ((i + 1) % 16 == 0) // salto de linea cada 16 bytes
+            fprintf(output, "\n");
+    }
+    fprintf(output, "\n");
+}
+
+void print_help()
+{
+    printf("Normal usage: ./ft_malcolm <source ip> <source mac address> <target ip> <target mac address>\n");
+
+    printf("Advanced usage: ./ft_malcolm <source ip> <source mac address> <target ip> <target mac address> [FLAGS]\n");
+
+    printf("Flags:\n");
+    printf("  -h, --help                Displays this help message.\n");
+    printf("  -o, --output <file>       Specifies the output file (default is 'output.txt').\n");
+    printf("  -v, --verbose             Shows detailed information for each packet.\n");
+    printf("  -s, --silent              Does not show any output to the terminal (only logs if enabled).\n");
+    printf("\n");
+	exit(0);
+}

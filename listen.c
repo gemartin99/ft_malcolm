@@ -10,13 +10,15 @@ int listen_arp(t_malcom *data)
 
     if ((sockfd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ARP))) < 0)
     {
-        fprintf(stderr, "Failed to create RAW socket\n");
+        if (!data->s)
+            fprintf(stderr, "Failed to create RAW socket\n");
         exit(1);
     }
 
     if (getifaddrs(&ifaddr) == -1)
     {
-        fprintf(stderr, "Failed to listing network interfaces\n");
+        if (!data->s)
+            fprintf(stderr, "Failed to listing network interfaces\n");
         exit(1);
     }
 
@@ -40,10 +42,14 @@ int listen_arp(t_malcom *data)
 
     freeifaddrs(ifaddr);
     if (data->iface[0] != '\0')
-        printf("Found available interface: %s\n", data->iface);
-    else
     {
-        fprintf(stderr, "Failed to obtain available network interface\n");
+        if (!data->s)
+            printf("Found available interface: %s\n", data->iface);
+    }
+    else
+    {   
+        if (!data->s)
+            fprintf(stderr, "Failed to obtain available network interface\n");
         exit(1);
     }
     /*
@@ -57,7 +63,8 @@ int listen_arp(t_malcom *data)
     }
     else
         printf("Found available interface: eth0\n");*/
-    printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, data->iface);
+    if (!data->s)
+        printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, data->iface);
     while (check_sigint == 0)
     {
         fd_set fds;
@@ -83,7 +90,8 @@ int listen_arp(t_malcom *data)
         int nbytes = recvfrom(sockfd, buffer, sizeof(buffer), 0,(struct sockaddr *)&addr, &addr_len);
         if (nbytes < 0)
         {
-            fprintf(stderr, "Failed to receive the packet\n");
+            if (!data->s)
+                fprintf(stderr, "Failed to receive the packet\n");
             continue;
         }
 
@@ -107,7 +115,8 @@ int listen_arp(t_malcom *data)
 
         if (strcmp(arp_tpa, data->s_ip) == 0)
         {
-            printf("Received ARP request from %s\n", data->s_ip);
+            if (!data->s)
+                printf("Received ARP request from %s\n", data->s_ip);
             break;
         }
 
