@@ -35,6 +35,7 @@ typedef struct s_malcolm
     int v;
     int o;
     int s;
+    int timeout;
     char *output;
     char *s_ip;
     char *s_mac;

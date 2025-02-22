@@ -12,6 +12,7 @@ t_malcolm *init_struct(char **argv)
     data->s_mac = argv[2];
     data->t_ip = argv[3];
     data->t_mac = argv[4];
+    data->timeout = -1;
     data->o = 0;
     data->v = 0;
     data->s = 0;

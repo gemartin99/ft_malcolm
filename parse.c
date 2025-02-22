@@ -98,6 +98,25 @@ int parse_bonus(int argc, char **argv, t_malcolm *data)
                 data->output = "output.txt";
             data->o = 1;
         }
+        else if (ft_strcmp(argv[i], "-t") == 0 || ft_strcmp(argv[i], "--timeout") == 0)
+        {
+            if (i + 1 <= argc)
+            {
+                if (argv[i + 1])
+                    data->timeout = atoi(argv[i + 1]);
+                else
+                    data->timeout = 15;
+                if (data->timeout <= 0)
+                {
+                    if (!data->s)
+                        printf("Invalid timeout. Use %s --help\n", argv[0]);
+                    exit (1);
+                }
+                i++;
+            }
+            else 
+                data->timeout = 15;
+        }
         else if ((ft_strcmp(argv[i], "-s") == 0 || ft_strcmp(argv[i], "--silent") == 0) && data->v == 0)
             data->s = 1;
         else if (ft_strcmp(argv[i], "-h") == 0 || ft_strcmp(argv[i], "--help") == 0)

@@ -1,4 +1,5 @@
 #include "ft_malcolm.h"
+#include <time.h>
 
 int listen_arp(t_malcolm *data)
 {
@@ -65,8 +66,18 @@ int listen_arp(t_malcolm *data)
         printf("Found available interface: eth0\n");*/
     if (!data->s)
         printf("Waiting for ARP request for %s on network interface %s\n", data->s_ip, data->iface);
+    time_t current_time;
+    time_t start_time;
+    start_time = time(NULL);
     while (check_sigint == 0)
     {
+        current_time = time(NULL);
+        if (data->timeout > 0 && current_time - start_time > data->timeout)
+        {
+            if (!data->s)
+                fprintf(stderr, "Timeout: No input received within %d seconds\n", data->timeout);
+            exit(1);
+        }
         fd_set fds;
         struct timeval timeout;
 

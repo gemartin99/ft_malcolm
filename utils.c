@@ -125,6 +125,7 @@ void print_help()
     printf("  -o, --output <file>       Specifies the output file (default is 'output.txt').\n");
     printf("  -v, --verbose             Shows detailed information for each packet.\n");
     printf("  -s, --silent              Does not show any output to the terminal (only logs if enabled).\n");
+	printf("  -t, --timeout <seconds>   Specifies the time (in seconds) to listen on the network interface (default is 15 seconds).\n");
     printf("\n");
 	exit(0);
 }
