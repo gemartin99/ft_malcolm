@@ -1,7 +1,7 @@
 # 🕵️‍♂️ ft_malcolm 
 
 ## 📜 Descripción
-**ft_malcolm** es un proyecto de la escuela 42 que consiste en manipular tráfico ARP para modificar las direcciones MAC asociadas a determinadas IPs dentro de una red local. Este tipo de ataque se conoce como ARP spoofing y permite interceptar tráfico entre dispositivos.
+**ft_malcolm** es un programa que intercepta paquetes ARP en la red local, los modifica y los reenvía. Su propósito es aprender sobre ARP Spoofing y cómo los ataques de manipulación de ARP pueden afectar la comunicación en redes.
 
 ## 🖥️ Uso 
 ### Modo básico
