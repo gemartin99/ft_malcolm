@@ -19,6 +19,7 @@
 - `-o`, `--output <archivo>` → Especifica un archivo de salida para logs (por defecto `output.log`).
 - `-v`, `--verbose` → Muestra información detallada de cada paquete interceptado.
 - `-s`, `--silent` → No muestra salida en terminal, solo escribe en el archivo de logs si está habilitado.
+- `-t`, `--timeout <segundos>` → Especifica el tiempo, en segundos, durante el cual el programa estará escuchando en la interfaz de red (por defecto 15 segundos).
 
 ## 🛠️ Ejemplo de ejecución
 ```bash
